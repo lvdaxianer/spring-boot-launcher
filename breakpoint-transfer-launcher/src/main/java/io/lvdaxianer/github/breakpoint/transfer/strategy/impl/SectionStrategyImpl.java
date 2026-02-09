@@ -8,32 +8,54 @@ import io.lvdaxianer.github.breakpoint.transfer.strategy.SelectStrategy;
 import io.lvdaxianer.github.breakpoint.transfer.utils.CommonUtils;
 import io.lvdaxianer.github.breakpoint.transfer.utils.Constants;
 import io.lvdaxianer.github.breakpoint.transfer.utils.result.ResponseEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
-
 import java.util.List;
 
 /**
- * 这是 切片文件上传的 策略实现
+ * 分片上传策略实现
+ * 处理文件分片上传请求，从请求中解析分片参数并调用文件操作接口
  *
- * @author lihh
+ * @author lvdaxianer
  */
+@Slf4j
 public class SectionStrategyImpl implements SelectStrategy {
 
+    /**
+     * 处理分片上传请求
+     * 解析请求URL中的目录名和文件名参数，获取上传的分片文件并执行上传
+     *
+     * @param req         HTTP请求对象，包含请求URL和上传文件
+     * @param fileOperate 文件操作接口，用于执行实际上传操作
+     * @return 上传操作结果，success字段表示是否上传成功
+     * @throws ParamCountException    参数数量不匹配时抛出
+     * @throws UploadFileException    文件为空或类型错误时抛出
+     * @author lvdaxianer
+     */
     @Override
     public ResponseEntity apply(HttpServletRequest req, FileOperate fileOperate) {
         String requestURI = req.getRequestURI();
-        List<Object> list = CommonUtils.resolveRestParams(requestURI, Constants.REQUEST_URL.SECTION_REQUEST_URL);
+        List<String> list = CommonUtils.resolveRestParams(requestURI, Constants.REQUEST_URL.SECTION_REQUEST_URL);
 
-        if (null == list || list.size() != 2)
+        // 验证参数数量，必须包含目录名和文件名两个参数
+        if (list == null || list.size() != 2) {
+            log.warn("分片上传参数数量错误，期望2个，实际{}个", list == null ? 0 : list.size());
             throw new ParamCountException(Constants.REQUEST_URL.SECTION_REQUEST_URL, 2, list == null ? 0 : list.size());
+        }
 
-        // 从这里获取 file
+        // 从请求中获取上传的分片文件
         MultipartFile file = CommonUtils.getMultipartFileByRequest(req);
-        if (null == file)
+        if (file == null || file.isEmpty()) {
+            log.warn("分片上传失败：文件为空");
             throw new UploadFileException("上传文件为空或类型错误", ErrorCode.FILE_EMPTY);
+        }
 
-        return fileOperate.upload(file, (String) list.get(0), (String) list.get(1));
+        String baseDir = CommonUtils.sanitizePath(list.get(0));
+        String filename = CommonUtils.sanitizePath(list.get(1));
+        log.debug("开始上传分片文件: dir={}, filename={}", baseDir, filename);
+
+        return fileOperate.upload(file, baseDir, filename);
     }
 }
