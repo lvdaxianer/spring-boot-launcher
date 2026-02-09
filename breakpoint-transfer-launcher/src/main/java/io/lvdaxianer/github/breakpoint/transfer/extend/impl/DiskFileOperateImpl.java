@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -60,37 +59,37 @@ public class DiskFileOperateImpl implements FileOperate {
 
     /**
      * 文件 分片上传的逻辑
+     * 使用 MultipartFile.transferTo 直接写入文件，避免内存拷贝
      *
-     * @param file     上传的文件
-     * @param baseDir  目录名称
-     * @param filename 文件名称
-     * @return 文件写入成功后 响应值
-     * @author lihh
+     * @param file     上传的文件分片
+     * @param baseDir  临时目录名称
+     * @param filename 分片文件名，格式：原始文件名-索引号
+     * @return 文件写入成功后响应值
+     * @author lvdaxianer
      */
     @Override
     public ResponseEntity upload(MultipartFile file, String baseDir, String filename) {
-        // 检查文件是否为空
         if (file == null || file.isEmpty()) {
             log.warn("文件上传失败: 文件为空");
             throw new UploadFileException("上传文件为空", ErrorCode.FILE_EMPTY);
         }
 
-        log.debug("开始上传文件: {}, 原始文件名: {}, 大小: {} bytes", filename, file.getOriginalFilename(), file.getSize());
+        log.debug("开始上传分片文件: {}, 原始文件名: {}, 大小: {} bytes",
+                filename, file.getOriginalFilename(), file.getSize());
 
         String targetBaseDir = fullProperties.getTmpDir() + File.separator + baseDir;
-
-        // 创建基础目录
         FileUtils.mkDir(targetBaseDir);
-        // 表示 文件地址
         String filePath = targetBaseDir + File.separator + filename;
 
-        // 将 文件 写入到磁盘中
         try {
-            FileUtils.writeFile(filePath, file.getInputStream());
-            log.info("文件上传成功: {}, 大小: {} bytes", filePath, file.getSize());
+            File destFile = new File(filePath);
+            // 直接transferTo写入，避免内存拷贝，这是Spring专门为文件上传优化的方法
+            file.transferTo(destFile);
+
+            log.info("分片文件上传成功: {}, 大小: {} bytes", filePath, file.getSize());
             return ResponseEntity.ok(true);
         } catch (IOException e) {
-            log.error("文件上传失败: {}, 错误: {}", filePath, e.getMessage());
+            log.error("分片文件上传失败: {}, 错误: {}", filePath, e.getMessage());
             throw new FileUploadException(filename, e.getMessage(), e);
         }
     }
