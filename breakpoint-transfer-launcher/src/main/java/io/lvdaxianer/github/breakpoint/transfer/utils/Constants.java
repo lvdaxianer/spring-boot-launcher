@@ -7,7 +7,7 @@ package io.lvdaxianer.github.breakpoint.transfer.utils;
  */
 public class Constants {
     public static class REQUEST_URL {
-        private final static String BASE_URL = "/breakpoint/transfer";
+        public final static String BASE_URL = "/breakpoint/transfer";
 
         public final static String SECTION_REQUEST_URL = BASE_URL + "/upload/section/([A-Za-z0-9_]+)/([A-Za-z0-9_]+.[A-Za-z0-9]+\\-\\d+)";
         public final static String VERIFY_REQUEST_URL = BASE_URL + "/upload/verify/([A-Za-z0-9]+.[A-Za-z0-9]+)";

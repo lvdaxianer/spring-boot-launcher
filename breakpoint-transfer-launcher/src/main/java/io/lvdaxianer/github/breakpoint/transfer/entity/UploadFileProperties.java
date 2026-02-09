@@ -24,7 +24,7 @@ public class UploadFileProperties {
     /**
      * HTTP 拦截器顺序
      */
-    private int httpInterceptorOrder;
+    private int httpInterceptorOrder = -1;
 
     /**
      * 上下文路径前缀

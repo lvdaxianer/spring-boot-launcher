@@ -1,1 +1,7 @@
 .idea
+uploadFileTmpDir
+.ia
+target
+.settings
+.classpath
+.project

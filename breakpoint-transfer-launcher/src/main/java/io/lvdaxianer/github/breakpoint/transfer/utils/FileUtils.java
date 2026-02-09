@@ -98,7 +98,7 @@ public class FileUtils {
             return "";
         }
         // 使用 Path.of 进行跨平台路径拼接
-        return Path.of("").resolve(Path.of("a", paths)).toString();
+        return Path.of("").resolve(Path.of("", paths)).toString();
     }
 
     /**

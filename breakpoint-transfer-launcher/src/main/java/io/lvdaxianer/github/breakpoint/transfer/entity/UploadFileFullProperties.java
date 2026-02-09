@@ -1,6 +1,5 @@
 package io.lvdaxianer.github.breakpoint.transfer.entity;
 
-import io.lvdaxianer.github.breakpoint.transfer.exception.ErrorCode;
 import io.lvdaxianer.github.breakpoint.transfer.exception.ParamErrorException;
 import io.lvdaxianer.github.breakpoint.transfer.utils.Constants;
 import lombok.Getter;
@@ -44,10 +43,10 @@ public class UploadFileFullProperties {
                 this.innerProperties.setSaveDir(saveDir);
             }
         }
-        if (0 == properties.getHttpInterceptorOrder())
+        if (properties.getHttpInterceptorOrder() < 0)
             this.innerProperties.setHttpInterceptorOrder(Constants.DEFAULT_INTERCEPTOR_ORDER);
 
-        if (StringUtils.hasLength(properties.getContextPrefix()))
+        if (!StringUtils.hasLength(properties.getContextPrefix()))
             this.innerProperties.setContextPrefix("");
     }
 

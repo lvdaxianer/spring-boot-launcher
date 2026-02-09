@@ -1,6 +1,7 @@
 package io.lvdaxianer.github.breakpoint.transfer.interceptor;
 
 import io.lvdaxianer.github.breakpoint.transfer.entity.UploadFileFullProperties;
+import io.lvdaxianer.github.breakpoint.transfer.utils.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +34,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 contextPrefix = contextPrefix.substring(0, contextPrefix.length() - 1);
         }
 
-        registry.addInterceptor(createRequestInterceptor()).addPathPatterns(contextPrefix + "/upload/**").order(httpInterceptorOrder);
+        registry.addInterceptor(createRequestInterceptor()).addPathPatterns(contextPrefix + Constants.REQUEST_URL.BASE_URL + "/upload/**").order(httpInterceptorOrder);
     }
 }

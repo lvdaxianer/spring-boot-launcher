@@ -169,14 +169,19 @@ public class DiskFileOperateImpl implements FileOperate {
 
         // 表示合并后的目录
         String mergePublicDir = fullProperties.getPublicDir() + File.separator + filename;
+        // 记录合并开始时间
+        long startTime = System.currentTimeMillis();
         // 判断是否合并成功
         boolean mergeFlag;
         try {
             mergeFlag = FileUtils.mergeFile(files, mergePublicDir);
         } catch (IOException e) {
-            log.error("文件合并失败: {}, 错误: {}", mergePublicDir, e.getMessage());
+            long costTime = System.currentTimeMillis() - startTime;
+            log.error("文件合并失败: {}, 错误: {}, 耗时: {} ms", mergePublicDir, e.getMessage(), costTime);
             throw new FileMergeException(filename, e.getMessage(), e);
         }
+        long costTime = System.currentTimeMillis() - startTime;
+        log.info("文件合并完成: {}, 耗时: {} ms", filename, costTime);
 
         if (mergeFlag) {
             log.info("文件合并成功: {}, 目标路径: {}", filename, mergePublicDir);
