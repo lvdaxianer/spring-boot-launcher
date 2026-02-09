@@ -68,22 +68,6 @@ public class UploadFileUtilsImpl implements UploadFileUtils {
     }
 
     /**
-     * 获取文件的路径字符串
-     *
-     * @param fileName 文件名称
-     * @return 路径字符串
-     * @author lihh
-     */
-    @Override
-    public String getPathString(String fileName) {
-        Path path = getPath(fileName);
-        if (path == null) {
-            return null;
-        }
-        return path.toString();
-    }
-
-    /**
      * 获取文件的 Path 对象
      *
      * @param newFilename 文件名称

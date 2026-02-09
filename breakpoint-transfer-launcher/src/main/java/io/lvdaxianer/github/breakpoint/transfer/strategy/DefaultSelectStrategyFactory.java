@@ -97,27 +97,18 @@ public class DefaultSelectStrategyFactory extends AbstractSelectStrategyFactory 
             RequestMatchEntity entity = map.getKey();
             String requestURL = entity.getRequestUrl();
             RequestEnum requestEnum = entity.getMethod();
-            boolean isMatch = entity.isMatch();
 
             // 先 匹配 method
             if (!StringUtils.equals(method.toLowerCase(), requestEnum.getMethod().toLowerCase())) {
                 continue;
             }
 
-            // 能执行到这里，最起码请求方法是相同的
-            if (!isMatch) {
-                if ((requestURL.hashCode() ^ reqURL.hashCode()) == 0) {
-                    log.debug("策略匹配成功: {} -> {}", reqURL, map.getValue().getClass().getSimpleName());
-                    return map.getValue();
-                }
-            } else {
-                // requestURL 这是正则 URL
-                Pattern pattern = Pattern.compile(requestURL);
-                Matcher matcher = pattern.matcher(reqURL);
-                if (matcher.find()) {
-                    log.debug("策略匹配成功: {} -> {}", reqURL, map.getValue().getClass().getSimpleName());
-                    return map.getValue();
-                }
+            // requestURL 这是正则 URL，使用正则匹配
+            Pattern pattern = Pattern.compile(requestURL);
+            Matcher matcher = pattern.matcher(reqURL);
+            if (matcher.find()) {
+                log.debug("策略匹配成功: {} -> {}", reqURL, map.getValue().getClass().getSimpleName());
+                return map.getValue();
             }
         }
 

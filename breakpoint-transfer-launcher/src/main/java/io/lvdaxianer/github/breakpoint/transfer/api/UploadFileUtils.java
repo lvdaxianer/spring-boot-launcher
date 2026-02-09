@@ -16,7 +16,5 @@ public interface UploadFileUtils {
 
     File getFileByName(String fileName);
 
-    String getPathString(String fileName);
-
     Path getPath(String newFilename);
 }

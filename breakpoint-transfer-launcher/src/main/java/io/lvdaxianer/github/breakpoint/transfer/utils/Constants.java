@@ -23,5 +23,4 @@ public class Constants {
     public final static String CONST_PUBLIC_NAME = "public";
     public final static String CONST_CONVERT_NAME = "convert";
     public final static String CONST_TMP_NAME = "tmp";
-    public final static int CONST_QUICKLY_DELAY_CONCURRENCY_MERGE_TIME = -1;
 }
