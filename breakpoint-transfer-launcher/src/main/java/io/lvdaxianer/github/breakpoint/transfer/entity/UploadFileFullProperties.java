@@ -1,0 +1,69 @@
+package io.lvdaxianer.github.breakpoint.transfer.entity;
+
+import io.lvdaxianer.github.breakpoint.transfer.exception.ErrorCode;
+import io.lvdaxianer.github.breakpoint.transfer.exception.ParamErrorException;
+import io.lvdaxianer.github.breakpoint.transfer.utils.Constants;
+import lombok.Getter;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
+
+import java.util.Arrays;
+
+/**
+ * 上传文件全部属性
+ *
+ * @author lvdaxianer
+ */
+@Getter
+@Configuration
+public class UploadFileFullProperties {
+
+    private String baseDir;
+    private String tmpDir;
+    private String convertDir;
+    private String publicDir;
+    private final UploadFileProperties innerProperties;
+
+    public UploadFileFullProperties(UploadFileProperties properties) {
+        this.innerProperties = properties;
+
+        String[] types = new String[]{Constants.ENABLED_TYPE_MINO, Constants.ENABLED_TYPE_DISK};
+        if (!Arrays.asList(types).contains(properties.getEnabledType())) {
+            throw new ParamErrorException("io.lvdaxianer.upload.file.enabled-type",
+                    String.join(" 或 ", types), properties.getEnabledType());
+        }
+
+        // 只有是 disk 的时候 才有意义
+        if (Constants.ENABLED_TYPE_DISK.equals(this.innerProperties.getEnabledType())) {
+            if (!StringUtils.hasLength(properties.getSaveDir()))
+                this.innerProperties.setSaveDir(Constants.fileSaveTmpDir);
+            else {
+                String saveDir = properties.getSaveDir();
+                if (properties.getSaveDir().startsWith("./"))
+                    saveDir = properties.getSaveDir().substring(2, saveDir.length());
+                this.innerProperties.setSaveDir(saveDir);
+            }
+        }
+        if (0 == properties.getHttpInterceptorOrder())
+            this.innerProperties.setHttpInterceptorOrder(Constants.DEFAULT_INTERCEPTOR_ORDER);
+
+        if (StringUtils.hasLength(properties.getContextPrefix()))
+            this.innerProperties.setContextPrefix("");
+    }
+
+    public String setBaseDir(String baseDir) {
+        return this.baseDir = baseDir;
+    }
+
+    public String setTmpDir(String tmpDir) {
+        return this.tmpDir = tmpDir;
+    }
+
+    public String setConvertDir(String convertDir) {
+        return this.convertDir = convertDir;
+    }
+
+    public String setPublicDir(String publicDir) {
+        return this.publicDir = publicDir;
+    }
+}

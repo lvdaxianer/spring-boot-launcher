@@ -1,0 +1,42 @@
+{
+  "properties": [
+    {
+      "name": "io.lvdaxianer.upload.file.enabled-type",
+      "type": "java.lang.String",
+      "description": "文件存储类型：disk（本地磁盘）或 mino（MinIO对象存储）"
+    },
+    {
+      "name": "io.lvdaxianer.upload.file.save-dir",
+      "type": "java.lang.String",
+      "description": "文件保存目录，当 enabled-type 为 disk 时必填"
+    },
+    {
+      "name": "io.lvdaxianer.upload.file.log-level",
+      "type": "java.lang.String",
+      "description": "日志级别：DEBUG, INFO, WARN, ERROR，默认 INFO",
+      "defaultValue": "INFO"
+    },
+    {
+      "name": "io.lvdaxianer.upload.file.detailed-logging",
+      "type": "java.lang.Boolean",
+      "description": "是否启用详细日志，启用后会输出更详细的操作信息",
+      "defaultValue": false
+    },
+    {
+      "name": "io.lvdaxianer.upload.file.http-interceptor-order",
+      "type": "java.lang.Integer",
+      "description": "HTTP拦截器顺序",
+      "defaultValue": 0
+    },
+    {
+      "name": "io.lvdaxianer.upload.file.context-prefix",
+      "type": "java.lang.String",
+      "description": "上下文访问前缀"
+    },
+    {
+      "name": "io.lvdaxianer.upload.file.thread-sleep-time",
+      "type": "java.lang.Integer",
+      "description": "线程休眠时间，用于等待更多文件上传"
+    }
+  ]
+}
