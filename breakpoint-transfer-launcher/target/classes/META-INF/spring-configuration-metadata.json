@@ -32,11 +32,6 @@
       "name": "io.lvdaxianer.upload.file.context-prefix",
       "type": "java.lang.String",
       "description": "上下文访问前缀"
-    },
-    {
-      "name": "io.lvdaxianer.upload.file.thread-sleep-time",
-      "type": "java.lang.Integer",
-      "description": "线程休眠时间，用于等待更多文件上传"
     }
   ]
 }
