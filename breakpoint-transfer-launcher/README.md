@@ -1,6 +1,6 @@
 # Breakpoint Transfer Spring Boot Starter
 
-[English](README.md) | [中文](README-zh.md)
+[English](README-en.md) | [中文](README.md)
 
 ## 1. 项目简介
 
@@ -117,7 +117,7 @@ src/main/java/io/lvdaxianer/github/breakpoint/transfer/
 │       ├── SectionStrategyImpl.java    # 分片上传策略
 │       ├── VerifyStrategyImpl.java     # 文件验证策略
 │       ├── ListStrategyImpl.java       # 文件列表策略
-│       ├── MergeStrategyImpl.java      # 文件合并策略
+│       ├── MergeStrategyImpl.java       # 文件合并策略
 │       └── adapter/
 │           └── DefaultSelectStrategyAdapter.java
 └── utils/                       # 工具类
@@ -284,7 +284,7 @@ io:
         http-interceptor-order: 10      # HTTP 拦截器顺序
         context-prefix:                 # 上下文路径前缀
         log-level: INFO                 # 日志级别：DEBUG, INFO, WARN, ERROR
-        detailed-logging: false        # 是否启用详细日志
+        detailed-logging: false         # 是否启用详细日志
 ```
 
 **Properties 配置方式**：
@@ -456,20 +456,20 @@ upload.upload('my-directory').then(result => {
 
 This project is licensed under the MIT License.
 
-## 15. Author
+## 15. 作者
 
 [lvdaxianer](https://github.com/lvdaxianer)
 
-## 16. Contributing
+## 16. 贡献
 
-Issues and pull requests are welcome.
+欢迎提交 Issue 和 Pull Request。
 
-## 17. Changelog
+## 17. 更新日志
 
 ### v0.0.1
-- Initial release
-- Support breakpoint file upload
-- Support local disk storage
-- Support MinIO storage (placeholder)
-- Complete exception handling system
-- Detailed logging support
+- 首次发布
+- 支持断点文件上传
+- 支持本地磁盘存储
+- 支持 MinIO 存储（占位实现）
+- 完整的异常处理体系
+- 详细的日志支持
