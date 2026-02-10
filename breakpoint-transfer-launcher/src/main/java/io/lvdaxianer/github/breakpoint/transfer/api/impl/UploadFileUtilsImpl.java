@@ -1,10 +1,8 @@
 package io.lvdaxianer.github.breakpoint.transfer.api.impl;
 
+import io.lvdaxianer.github.breakpoint.transfer.api.UploadFileUtils;
 import io.lvdaxianer.github.breakpoint.transfer.entity.UploadFileFullProperties;
 import io.lvdaxianer.github.breakpoint.transfer.exception.UploadFileNotFoundException;
-import io.lvdaxianer.github.breakpoint.transfer.api.UploadFileUtils;
-import io.lvdaxianer.github.breakpoint.transfer.utils.Constants;
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,9 +50,6 @@ public class UploadFileUtilsImpl implements UploadFileUtils {
 
     @Override
     public File getFileByName(String fileName) {
-        if (!StringUtils.equals(fullProperties.getInnerProperties().getEnabledType(), Constants.ENABLED_TYPE_DISK))
-            return null;
-
         String filePath = fullProperties.getPublicDir() + File.separator + fileName;
 
         File file = new File(filePath);

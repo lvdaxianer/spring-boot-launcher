@@ -1,11 +1,6 @@
 {
   "properties": [
     {
-      "name": "io.lvdaxianer.upload.file.enabled-type",
-      "type": "java.lang.String",
-      "description": "文件存储类型：disk（本地磁盘）或 mino（MinIO对象存储）"
-    },
-    {
       "name": "io.lvdaxianer.upload.file.save-dir",
       "type": "java.lang.String",
       "description": "文件保存目录，当 enabled-type 为 disk 时必填"

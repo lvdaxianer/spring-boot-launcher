@@ -13,7 +13,6 @@ import io.lvdaxianer.github.breakpoint.transfer.utils.result.ResponseEntity;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,8 +29,7 @@ import java.util.Optional;
  */
 @Slf4j
 @Component
-@ConditionalOnProperty(name = "io.lvdaxianer.upload.file.enabled-type", havingValue = "disk")
-public class DiskFileOperateImpl implements FileOperate {
+public class DiskFileOperate implements FileOperate {
     @Resource
     private UploadFileFullProperties fullProperties;
 
