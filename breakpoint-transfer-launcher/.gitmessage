@@ -1,0 +1,26 @@
+# Type: Subject line (max 50 chars)
+
+# Explain why this change is being made
+
+# Provide links to any relevant issues or PRs
+
+# --- ALL SUBMISSION TEXT BELOW WILL BE IGNORED ---
+
+# Type can be:
+#   feat     - 新功能 (new feature)
+#   fix      - 修复bug (bug fix)
+#   docs     - 文档更新 (documentation changes)
+#   style    - 代码格式 (formatting, missing semicolons, etc)
+#   refactor - 重构代码 (code change that neither fixes bug nor adds feature)
+#   perf     - 性能优化 (performance improvement)
+#   test     - 测试相关 (adding or modifying tests)
+#   chore    - 构建工具或辅助工具 (changes to build process or auxiliary tools)
+
+# Example:
+# feat: 添加断点续传文件验证功能
+#
+# 实现文件上传前的秒传验证，通过MD5校验判断文件是否已存在
+#
+# 解决大文件重复上传导致的时间浪费问题
+#
+# Closes #123
