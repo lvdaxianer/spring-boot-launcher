@@ -14,6 +14,34 @@
         <version>3.4.5</version>
     </parent>
 
+    <description>Resume from Breakpoint Spring Boot Starter</description>
+
+    <!-- 项目名称，Maven Central发布必需 -->
+    <name>Breakpoint Transfer Spring Boot Starter</name>
+
+    <!--项目url-->
+    <url>https://github.com/lvdaxianer/spring-boot-launcher/tree/main/breakpoint-transfer-launcher</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>lvdaxianer</name>
+            <email>15064044877@163.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git@github.com:lvdaxianer/spring-boot-launcher.git</connection>
+        <developerConnection>scm:git@github.com:lvdaxianer/spring-boot-launcher.git</developerConnection>
+        <url>https://github.com/lvdaxianer/spring-boot-launcher/tree/main/breakpoint-transfer-launcher</url>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -106,18 +134,122 @@
             <version>2.1.1</version>
         </dependency>
 
-        <!-- MinIO 对象存储客户端 -->
+        <!-- Spring Boot Test -->
         <dependency>
-            <groupId>io.minio</groupId>
-            <artifactId>minio</artifactId>
-            <version>8.5.7</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <gpg.executable>gpg</gpg.executable>
+                <gpg.passphrase>@Lvdaxianer572251465</gpg.passphrase>
+            </properties>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!--发布插件的插件-->
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.7.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>lvdaxianer</publishingServerId>
+                        </configuration>
+                    </plugin>
+
+                    <!--生成Maven源码和文档-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.12.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <!-- 配置 maven-plugin-plugin 并指定 goalPrefix -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>3.13.1</version>
+                <configuration>
+                    <goalPrefix>lvdaxianer</goalPrefix> <!-- 这里指定插件的名字 -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>helpmojo</goal> <!--这里用来自动生成help文档-->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 配置编译插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

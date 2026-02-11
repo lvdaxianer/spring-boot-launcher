@@ -1,14 +1,11 @@
 package io.lvdaxianer.github.breakpoint.transfer.exception;
 
-import lombok.Getter;
-
 /**
  * 错误码枚举
  * 统一管理项目中的错误码，便于问题排查和监控
  *
  * @author lihh
  */
-@Getter
 public enum ErrorCode {
 
     // ========== 参数相关错误 ==========
@@ -66,5 +63,23 @@ public enum ErrorCode {
     ErrorCode(String code, String description) {
         this.code = code;
         this.description = description;
+    }
+
+    /**
+     * 获取错误码
+     *
+     * @return 错误码
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * 获取错误描述
+     *
+     * @return 错误描述
+     */
+    public String getDescription() {
+        return description;
     }
 }

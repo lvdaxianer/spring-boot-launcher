@@ -11,9 +11,25 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum RequestEnum {
+
+    /**
+     * GET请求方法
+     */
     GET("GET"),
+
+    /**
+     * DELETE请求方法
+     */
     DELETE("DELETE"),
+
+    /**
+     * PATCH请求方法
+     */
     PATCH("PATCH"),
+
+    /**
+     * POST请求方法
+     */
     POST("POST");
 
     private final String method;

@@ -15,12 +15,23 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
+/**
+ * 文件上传工具实现类
+ * 提供File与MultipartFile之间的转换操作
+ *
+ * @author lihh
+ */
 @Component
 public class UploadFileUtilsImpl implements UploadFileUtils {
 
     private static final Logger log = LoggerFactory.getLogger(UploadFileUtilsImpl.class);
     private final UploadFileFullProperties fullProperties;
 
+    /**
+     * 构造方法
+     *
+     * @param fullProperties 文件配置属性，不能为null
+     */
     public UploadFileUtilsImpl(UploadFileFullProperties fullProperties) {
         this.fullProperties = fullProperties;
     }
@@ -67,7 +78,6 @@ public class UploadFileUtilsImpl implements UploadFileUtils {
      *
      * @param newFilename 文件名称
      * @return Path 对象
-     * @author lihh
      */
     @Override
     public Path getPath(String newFilename) {

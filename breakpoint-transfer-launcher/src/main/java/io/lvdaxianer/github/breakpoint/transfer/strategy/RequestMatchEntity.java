@@ -16,10 +16,27 @@ import java.io.Serializable;
  */
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class RequestMatchEntity implements Serializable {
+
+    /**
+     * 请求URL
+     */
     private String requestUrl;
+
+    /**
+     * 请求方法类型
+     */
     private RequestEnum method;
+
+    /**
+     * 是否匹配
+     */
     private boolean isMatch;
+
+    /**
+     * 无参构造函数
+     */
+    public RequestMatchEntity() {
+    }
 }

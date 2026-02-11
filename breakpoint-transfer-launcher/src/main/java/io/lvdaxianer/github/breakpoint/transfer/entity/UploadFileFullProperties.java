@@ -14,12 +14,43 @@ import org.springframework.util.StringUtils;
 @Configuration
 public class UploadFileFullProperties {
 
+    /**
+     * -- GETTER --
+     *  获取基础目录
+     *
+     */
     private String baseDir;
+    /**
+     * -- GETTER --
+     *  获取临时目录
+     *
+     */
     private String tmpDir;
+    /**
+     * -- GETTER --
+     *  获取转换目录
+     *
+     */
     private String convertDir;
+    /**
+     * -- GETTER --
+     *  获取公共目录
+     *
+     */
     private String publicDir;
+    /**
+     * -- GETTER --
+     *  获取内部属性
+     *
+     */
     private final UploadFileProperties innerProperties;
 
+    /**
+     * 构造方法
+     *
+     * @param properties 上传文件属性配置，不能为null
+     * @author lvdaxianer
+     */
     public UploadFileFullProperties(UploadFileProperties properties) {
         this.innerProperties = properties;
 
@@ -38,18 +69,42 @@ public class UploadFileFullProperties {
             this.innerProperties.setContextPrefix("");
     }
 
+    /**
+     * 设置基础目录
+     *
+     * @param baseDir 基础目录路径
+     * @return 设置后的路径
+     */
     public String setBaseDir(String baseDir) {
         return this.baseDir = baseDir;
     }
 
+    /**
+     * 设置临时目录
+     *
+     * @param tmpDir 临时目录路径
+     * @return 设置后的路径
+     */
     public String setTmpDir(String tmpDir) {
         return this.tmpDir = tmpDir;
     }
 
+    /**
+     * 设置转换目录
+     *
+     * @param convertDir 转换目录路径
+     * @return 设置后的路径
+     */
     public String setConvertDir(String convertDir) {
         return this.convertDir = convertDir;
     }
 
+    /**
+     * 设置公共目录
+     *
+     * @param publicDir 公共目录路径
+     * @return 设置后的路径
+     */
     public String setPublicDir(String publicDir) {
         return this.publicDir = publicDir;
     }

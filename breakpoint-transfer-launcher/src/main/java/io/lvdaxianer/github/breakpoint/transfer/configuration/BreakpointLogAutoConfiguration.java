@@ -3,7 +3,6 @@ package io.lvdaxianer.github.breakpoint.transfer.configuration;
 import io.lvdaxianer.github.breakpoint.transfer.entity.UploadFileProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,10 +15,6 @@ import org.springframework.util.StringUtils;
  * @author lihh
  */
 @Configuration
-@ConditionalOnProperty(
-        prefix = "io.lvdaxianer.upload.file",
-        name = "enabled-type"
-)
 @EnableConfigurationProperties(UploadFileProperties.class)
 public class BreakpointLogAutoConfiguration {
 
@@ -93,22 +88,5 @@ public class BreakpointLogAutoConfiguration {
             }
         }
 
-        /**
-         * 获取当前日志级别
-         *
-         * @return 日志级别字符串
-         */
-        public String getLogLevel() {
-            return properties.getLogLevel();
-        }
-
-        /**
-         * 是否启用详细日志
-         *
-         * @return true 表示启用
-         */
-        public boolean isDetailedLogging() {
-            return properties.isDetailedLogging();
-        }
     }
 }

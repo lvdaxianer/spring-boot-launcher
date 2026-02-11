@@ -3,7 +3,7 @@
     {
       "name": "io.lvdaxianer.upload.file.save-dir",
       "type": "java.lang.String",
-      "description": "文件保存目录，当 enabled-type 为 disk 时必填"
+      "description": "文件保存目录"
     },
     {
       "name": "io.lvdaxianer.upload.file.log-level",

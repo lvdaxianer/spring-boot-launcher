@@ -93,7 +93,7 @@ public class CommonUtils {
      * @author lvdaxianer
      */
     public static String getValueOrDefault(String value, String replaceValue) {
-        return StringUtils.isEmpty(value) ? replaceValue : value;
+        return StringUtils.isBlank(value) ? replaceValue : value;
     }
 
     /**
@@ -136,8 +136,13 @@ public class CommonUtils {
             throw new IllegalArgumentException("路径包含非法字符");
         }
 
-        // 检查绝对路径
-        if (new File(path).isAbsolute()) {
+        // 检查绝对路径（同时检查 File、Paths 和 Windows 格式）
+        if (new File(path).isAbsolute() || Paths.get(path).isAbsolute()) {
+            throw new IllegalArgumentException("不支持绝对路径");
+        }
+
+        // 检查 Windows 格式的绝对路径（如 C:\Windows\System32）
+        if (path.matches("^[A-Za-z]:\\\\.*")) {
             throw new IllegalArgumentException("不支持绝对路径");
         }
 

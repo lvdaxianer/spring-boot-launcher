@@ -6,9 +6,9 @@ import io.lvdaxianer.github.breakpoint.transfer.strategy.SelectStrategy;
 import io.lvdaxianer.github.breakpoint.transfer.utils.CommonUtils;
 import io.lvdaxianer.github.breakpoint.transfer.utils.Constants;
 import io.lvdaxianer.github.breakpoint.transfer.utils.result.ResponseEntity;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -43,7 +43,7 @@ public class MergeStrategyImpl implements SelectStrategy {
 
         String baseDir = CommonUtils.sanitizePath(list.get(0));
         String filename = CommonUtils.sanitizePath(list.get(1));
-        log.debug("开始合并文件: dir={}, filename={}", baseDir, filename);
+        log.info("开始合并文件: dir={}, filename={}", baseDir, filename);
 
         return fileOperate.merge(baseDir, filename);
     }

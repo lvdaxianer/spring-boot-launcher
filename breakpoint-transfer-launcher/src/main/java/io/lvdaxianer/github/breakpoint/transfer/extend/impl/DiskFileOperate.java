@@ -12,6 +12,7 @@ import io.lvdaxianer.github.breakpoint.transfer.utils.FileUtils;
 import io.lvdaxianer.github.breakpoint.transfer.utils.result.ResponseEntity;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,9 +28,17 @@ import java.util.Optional;
  *
  * @author lvdaxianer
  */
+@Setter
 @Slf4j
 @Component
 public class DiskFileOperate implements FileOperate {
+
+    /**
+     * -- SETTER --
+     * 设置属性（用于测试）
+     *
+     * @param fullProperties 完整属性
+     */
     @Resource
     private UploadFileFullProperties fullProperties;
 
@@ -39,8 +48,6 @@ public class DiskFileOperate implements FileOperate {
      */
     @PostConstruct
     public void postHandler() {
-        log.info("初始化磁盘文件操作，存储类型: {}", fullProperties.getInnerProperties().getEnabledType());
-
         // 基础目录
         String baseDir = fullProperties.setBaseDir(CommonUtils.getAbsolutePath(fullProperties.getInnerProperties().getSaveDir()).toString());
         String tmpDir = fullProperties.setTmpDir(baseDir + File.separator + Constants.CONST_TMP_NAME);
@@ -72,8 +79,11 @@ public class DiskFileOperate implements FileOperate {
             throw new UploadFileException("上传文件为空", ErrorCode.FILE_EMPTY);
         }
 
-        log.debug("开始上传分片文件: {}, 原始文件名: {}, 大小: {} bytes",
-                filename, file.getOriginalFilename(), file.getSize());
+        boolean isDebug = "DEBUG".equalsIgnoreCase(fullProperties.getInnerProperties().getLogLevel());
+        if (isDebug) {
+            log.debug("开始上传分片文件: {}, 原始文件名: {}, 大小: {} bytes",
+                    filename, file.getOriginalFilename(), file.getSize());
+        }
 
         String targetBaseDir = fullProperties.getTmpDir() + File.separator + baseDir;
         FileUtils.mkDir(targetBaseDir);
@@ -103,7 +113,9 @@ public class DiskFileOperate implements FileOperate {
     public ResponseEntity verify(String filename) {
         String filePath = FileUtils.joinPath(fullProperties.getPublicDir(), filename);
         boolean exists = FileUtils.isFileExist(filePath);
-        log.debug("验证文件是否存在: {}, 结果: {}", filePath, exists);
+        if ("DEBUG".equalsIgnoreCase(fullProperties.getInnerProperties().getLogLevel())) {
+            log.debug("验证文件是否存在: {}, 结果: {}", filePath, exists);
+        }
         return ResponseEntity.ok(exists);
     }
 
@@ -120,7 +132,9 @@ public class DiskFileOperate implements FileOperate {
         File basePathFile = new File(dirPath);
         // 表示目录是否存在
         if (!basePathFile.isDirectory() || !basePathFile.exists()) {
+        if ("DEBUG".equalsIgnoreCase(fullProperties.getInnerProperties().getLogLevel())) {
             log.debug("查询文件列表，目录不存在: {}", dirPath);
+        }
             return ResponseEntity.ok(null);
         }
 
@@ -128,7 +142,9 @@ public class DiskFileOperate implements FileOperate {
         String[] list = Optional.ofNullable(basePathFile.list()).orElse(new String[]{});
 
         if (list.length == 0) {
+        if ("DEBUG".equalsIgnoreCase(fullProperties.getInnerProperties().getLogLevel())) {
             log.debug("查询文件列表，目录为空: {}", dirPath);
+        }
             return ResponseEntity.ok(Arrays.asList(0, 0L));
         }
 
@@ -163,7 +179,9 @@ public class DiskFileOperate implements FileOperate {
             return ResponseEntity.ok(false);
         }
 
-        log.debug("找到 {} 个分片文件待合并", files.length);
+        if ("DEBUG".equalsIgnoreCase(fullProperties.getInnerProperties().getLogLevel())) {
+            log.debug("找到 {} 个分片文件待合并", files.length);
+        }
 
         // 表示合并后的目录
         String mergePublicDir = fullProperties.getPublicDir() + File.separator + filename;
@@ -187,7 +205,9 @@ public class DiskFileOperate implements FileOperate {
             // 删除临时文件
             boolean deleteSuccess = FileUtils.deleteIfExists(tempDir);
             if (deleteSuccess) {
+            if ("DEBUG".equalsIgnoreCase(fullProperties.getInnerProperties().getLogLevel())) {
                 log.debug("临时文件删除成功: {}", tempDir);
+            }
             } else {
                 log.warn("临时文件删除失败: {}", tempDir);
             }

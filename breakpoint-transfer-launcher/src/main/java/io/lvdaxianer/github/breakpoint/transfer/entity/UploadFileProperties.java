@@ -1,6 +1,8 @@
 package io.lvdaxianer.github.breakpoint.transfer.entity;
 
-import lombok.Data;
+import io.lvdaxianer.github.breakpoint.transfer.utils.Constants;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -8,13 +10,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author lvdaxian
  */
+@Setter
+@Getter
 @ConfigurationProperties(prefix = "io.lvdaxianer.upload.file")
-@Data
 public class UploadFileProperties {
-    /**
-     * 存储类型：disk 或 mino
-     */
-    private String enabledType;
 
     /**
      * 文件保存目录
@@ -29,17 +28,18 @@ public class UploadFileProperties {
     /**
      * 上下文路径前缀
      */
-    private String contextPrefix;
+    private String contextPrefix = Constants.REQUEST_URL.BASE_URL;
 
     /**
      * 日志级别：DEBUG, INFO, WARN, ERROR
      * 默认 INFO
      */
-    private String logLevel = "INFO";
+    private String logLevel = "DEBUG";
 
     /**
      * 是否启用详细日志
      * 启用后会输出更详细的操作信息
      */
     private boolean detailedLogging = false;
+
 }

@@ -187,7 +187,8 @@ public class FileUtils {
      * 如果文件已存在会自动覆盖
      *
      * @param outputFilePath 输出的文件地址
-     * @param inputStream   输入流
+     * @param inputStream    输入流
+     * @throws IOException IO异常
      * @author lvdaxianer
      */
     public static void writeFile(String outputFilePath, InputStream inputStream) throws IOException {
