@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- 文档: 更新 CHANGELOG (ee46d03)
+
 ### Added
 - 新功能: 完善断点续传功能核心实现 (eafbddb)
 

@@ -2,22 +2,24 @@
 
 [English](README-en.md) | [中文](README.md) | [Gitee](https://gitee.com/breakpoint-transfer-launcher/spring-boot-launcher)
 
-**双仓库同步**: [GitHub](https://github.com/lvdaxianer/spring-boot-launcher) | [Gitee](https://gitee.com/breakpoint-transfer-launcher/spring-boot-launcher)
+**双仓库同步
+**: [GitHub](https://github.com/lvdaxianer/spring-boot-launcher) | [Gitee](https://gitee.com/breakpoint-transfer-launcher/spring-boot-launcher)
 
 ## 1. 项目简介
 
-**Breakpoint Transfer Spring Boot Starter** 是一个基于 Spring Boot 的断点续传文件上传组件。该组件采用策略模式设计，专注于本地磁盘存储优化，提供完整的文件分片上传、验证、合并等功能。
+**Breakpoint Transfer Spring Boot Starter** 是一个基于 Spring Boot
+的断点续传文件上传组件。该组件采用策略模式设计，专注于本地磁盘存储优化，提供完整的文件分片上传、验证、合并等功能。
 
 ## 2. 项目优势
 
 ### 2.1 卓越的性能表现
 
-| 特性 | 实现方式 | 优势 |
-|------|----------|------|
+| 特性   | 实现方式                           | 优势                     |
+|------|--------------------------------|------------------------|
 | 文件合并 | `FileChannel.transferTo` 零拷贝技术 | 内存占用降低 90%，速度提升 5-10 倍 |
-| 文件写入 | Spring `transferTo` 直接写入 | 避免内存拷贝，IO 性能最优 |
-| 目录操作 | Apache Commons IO | 高效的目录遍历和文件大小计算 |
-| 正则匹配 | 编译后 Pattern 缓存 | 请求匹配零额外开销 |
+| 文件写入 | Spring `transferTo` 直接写入       | 避免内存拷贝，IO 性能最优         |
+| 目录操作 | Apache Commons IO              | 高效的目录遍历和文件大小计算         |
+| 正则匹配 | 编译后 Pattern 缓存                 | 请求匹配零额外开销              |
 
 ### 2.2 优雅的架构设计
 
@@ -35,12 +37,12 @@
 
 ### 2.4 高度可扩展
 
-| 扩展点 | 方式 | 示例 |
-|--------|------|------|
-| 新增存储策略 | 实现 `FileOperate` 接口 | 添加 S3、OSS、云存储支持 |
-| 新增请求处理 | 实现 `SelectStrategy` + 注册到工厂 | 添加断点续传校验接口 |
-| 新增错误码 | 扩展 `ErrorCode` 枚举 | 添加业务自定义错误 |
-| 新增配置项 | 添加属性 + `@ConfigurationProperties` | 添加限流、压缩等配置 |
+| 扩展点    | 方式                                | 示例              |
+|--------|-----------------------------------|-----------------|
+| 新增存储策略 | 实现 `FileOperate` 接口               | 添加 S3、OSS、云存储支持 |
+| 新增请求处理 | 实现 `SelectStrategy` + 注册到工厂       | 添加断点续传校验接口      |
+| 新增错误码  | 扩展 `ErrorCode` 枚举                 | 添加业务自定义错误       |
+| 新增配置项  | 添加属性 + `@ConfigurationProperties` | 添加限流、压缩等配置      |
 
 ### 2.5 完善的工程实践
 
@@ -67,16 +69,16 @@
 
 ## 4. 技术栈
 
-| 技术 | 版本 | 说明 |
-|------|------|------|
-| Spring Boot | 3.4.5 | 应用框架 |
-| Java | 17 | 开发语言 |
-| Apache Commons Lang3 | 3.14.0 | 工具库 |
-| Apache Commons IO | 2.15.1 | 文件操作库 |
-| Fastjson2 | 2.0.43 | JSON 序列化 |
-| Lombok | - | 代码简化 |
-| SLF4J | 2.0.9 | 日志框架 |
-| Spring Boot Test | 3.4.5 | 测试框架 |
+| 技术                   | 版本     | 说明       |
+|----------------------|--------|----------|
+| Spring Boot          | 3.4.5  | 应用框架     |
+| Java                 | 17     | 开发语言     |
+| Apache Commons Lang3 | 3.14.0 | 工具库      |
+| Apache Commons IO    | 2.15.1 | 文件操作库    |
+| Fastjson2            | 2.0.43 | JSON 序列化 |
+| Lombok               | -      | 代码简化     |
+| SLF4J                | 2.0.9  | 日志框架     |
+| Spring Boot Test     | 3.4.5  | 测试框架     |
 
 ## 5. 项目结构
 
@@ -138,6 +140,7 @@ src/main/java/io/lvdaxianer/github/breakpoint/transfer/
 将大文件分割成多个小片段进行上传，支持断点续传功能。每个分片文件独立上传，即使某个分片上传失败，也只需重传该分片而无需重新上传整个文件。
 
 **特点**：
+
 - 支持任意大小的文件分片
 - 分片文件自动按序号排序
 - 使用 Spring 的 `transferTo` 方法优化文件写入性能
@@ -169,10 +172,10 @@ Request Body: file (文件分片)
 
 **参数说明**：
 
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| baseDir | String | 是 | 文件存放目录名称 |
-| filename | String | 是 | 文件名，格式：`原始文件名-序号` |
+| 参数       | 类型     | 必填 | 说明                |
+|----------|--------|----|-------------------|
+| baseDir  | String | 是  | 文件存放目录名称          |
+| filename | String | 是  | 文件名，格式：`原始文件名-序号` |
 
 **响应示例**：
 
@@ -193,9 +196,9 @@ GET /breakpoint/transfer/upload/verify/{filename}
 
 **参数说明**：
 
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| filename | String | 是 | 要验证的文件名 |
+| 参数       | 类型     | 必填 | 说明      |
+|----------|--------|----|---------|
+| filename | String | 是  | 要验证的文件名 |
 
 **响应示例**：
 
@@ -216,9 +219,9 @@ GET /breakpoint/transfer/upload/list/{baseDir}
 
 **参数说明**：
 
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| baseDir | String | 是 | 目录名称 |
+| 参数      | 类型     | 必填 | 说明   |
+|---------|--------|----|------|
+| baseDir | String | 是  | 目录名称 |
 
 **响应示例**：
 
@@ -227,11 +230,15 @@ GET /breakpoint/transfer/upload/list/{baseDir}
   "success": true,
   "code": "200",
   "message": null,
-  "data": [3, 1048576]
+  "data": [
+    3,
+    1048576
+  ]
 }
 ```
 
 `data` 为数组，包含两个元素：
+
 - 第一个元素：分片文件数量
 - 第二个元素：分片文件总大小（字节）
 
@@ -243,10 +250,10 @@ GET /breakpoint/transfer/upload/merge/{baseDir}/{filename}
 
 **参数说明**：
 
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| baseDir | String | 是 | 文件存放目录名称 |
-| filename | String | 是 | 原始文件名 |
+| 参数       | 类型     | 必填 | 说明       |
+|----------|--------|----|----------|
+| baseDir  | String | 是  | 文件存放目录名称 |
+| filename | String | 是  | 原始文件名    |
 
 **响应示例**：
 
@@ -264,6 +271,7 @@ GET /breakpoint/transfer/upload/merge/{baseDir}/{filename}
 ### 8.1 Maven 依赖
 
 ```xml
+
 <dependency>
     <groupId>io.github.lvdaxianer</groupId>
     <artifactId>breakpoint-transfer-spring-boot3-starter</artifactId>
@@ -301,13 +309,13 @@ io.lvdaxianer.upload.file.detailed-logging=false
 
 ### 8.3 配置说明
 
-| 配置项 | 类型 | 默认值 | 说明 |
-|--------|------|--------|------|
-| `save-dir` | String | `uploadFileTmpDir` | 文件保存目录 |
-| `http-interceptor-order` | int | 10 | HTTP 拦截器执行顺序 |
-| `context-prefix` | String | "" | 上下文路径前缀，用于设置应用的上下文根路径 |
-| `log-level` | String | DEBUG | 日志级别，支持 DEBUG、INFO、WARN、ERROR |
-| `detailed-logging` | boolean | false | 是否启用详细日志，启用后输出更详细的操作信息 |
+| 配置项                      | 类型      | 默认值                | 说明                            |
+|--------------------------|---------|--------------------|-------------------------------|
+| `save-dir`               | String  | `uploadFileTmpDir` | 文件保存目录                        |
+| `http-interceptor-order` | int     | 10                 | HTTP 拦截器执行顺序                  |
+| `context-prefix`         | String  | ""                 | 上下文路径前缀，用于设置应用的上下文根路径         |
+| `log-level`              | String  | DEBUG              | 日志级别，支持 DEBUG、INFO、WARN、ERROR |
+| `detailed-logging`       | boolean | false              | 是否启用详细日志，启用后输出更详细的操作信息        |
 
 ## 9. 使用示例
 
@@ -396,16 +404,16 @@ upload.upload('my-directory').then(result => {
 
 ## 11. 错误码说明
 
-| 错误码 | 说明 |
-|--------|------|
+| 错误码       | 说明        |
+|-----------|-----------|
 | PARAM_001 | 请求参数数量不正确 |
 | PARAM_002 | 请求参数格式不正确 |
-| PARAM_003 | 参数值无效 |
-| FILE_001 | 上传文件为空 |
-| FILE_004 | 文件上传失败 |
-| FILE_005 | 文件合并失败 |
-| FILE_006 | 文件不存在 |
-| FILE_007 | 文件存储错误 |
+| PARAM_003 | 参数值无效     |
+| FILE_001  | 上传文件为空    |
+| FILE_004  | 文件上传失败    |
+| FILE_005  | 文件合并失败    |
+| FILE_006  | 文件不存在     |
+| FILE_007  | 文件存储错误    |
 
 ## 12. 扩展开发
 
@@ -423,6 +431,7 @@ upload.upload('my-directory').then(result => {
 ## 13. 日志配置
 
 组件支持以下日志级别：
+
 - **DEBUG**：详细的调试信息，包括请求参数、处理步骤
 - **INFO**：常规运行信息，包括关键操作记录
 - **WARN**：警告信息，包括参数异常等情况
@@ -435,6 +444,7 @@ upload.upload('my-directory').then(result => {
 ### 14.1 文件合并优化
 
 组件使用 Java NIO 的 `FileChannel.transferTo` 方法进行文件合并，该方法利用操作系统底层的零拷贝特性，相比传统 IO 具有以下优势：
+
 - 内存占用更低：无需将数据加载到用户空间
 - 复制速度更快：直接在内核空间完成数据传输
 - CPU 消耗更少：减少了用户态和内核态之间的数据拷贝
@@ -442,6 +452,7 @@ upload.upload('my-directory').then(result => {
 ### 14.2 分片大小建议
 
 建议分片大小设置在 1MB-10MB 之间：
+
 - 分片过小：增加 HTTP 请求次数，网络开销增大
 - 分片过大：内存占用增加，重传成本提高
 
@@ -465,20 +476,12 @@ This project is licensed under the MIT License.
 
 ## 19. 更新日志
 
-### v0.0.2
-- 移除 MinIO 依赖，专注本地磁盘存储优化
-- Java 版本从 21 降级到 17，提升兼容性
-- 移除 `enabled-type` 配置项，简化配置
-- 默认日志级别改为 DEBUG，便于调试
-- 添加丰富的 JavaDoc 注释，提升代码可读性
-- 优化日志输出，减少生产环境噪音
-- 添加 Maven Central 发布配置
-- 添加源码和 JavaDoc 插件支持
-
 ### v0.0.1
+
 - 首次发布
 - 支持断点文件上传
 - 支持本地磁盘存储
-- 支持 MinIO 存储（占位实现）
 - 完整的异常处理体系
 - 详细的日志支持
+- 支持java17
+- 专注本地磁盘存储优化
