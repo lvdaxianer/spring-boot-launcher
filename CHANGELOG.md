@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- 新功能: 完善断点续传功能核心实现 (eafbddb)
+
 - 新功能: 添加双平台同步和自动更新日志功能 (b5ca31f)
 
 
