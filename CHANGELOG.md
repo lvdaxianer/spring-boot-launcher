@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+- 构建: 更新 CHANGELOG (da74dd7)
+
+- 文档: 重构 README 文档结构 (ea52718)
+
 - 文档: 更新 README 和 CHANGELOG (7a1ae59)
 
 - 文档: 更新 CHANGELOG (ee46d03)
