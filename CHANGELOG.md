@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+- 文档: 更新 README 和 CHANGELOG (7a1ae59)
+
 - 文档: 更新 CHANGELOG (ee46d03)
 
 ### Added
